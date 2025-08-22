@@ -1,58 +1,77 @@
-# s-p-500--gold-monthly-comparison
-Data pipeline with yfinance + pandas + Plotly: downloads real Yahoo Finance data and builds per-month S&amp;P 500 vs Gold interactive reports.
 Sample Python Project: S&P 500 (^GSPC) vs Gold (GC=F) — Monthly Comparison
 
 
+Overview
+
+This project is an interactive Streamlit app that compares the monthly performance of the S&P 500 Index and Gold Futures over the past two years.
+It provides:
+Side-by-side monthly performance charts
+ Dynamic comparison with colour-coded trends
+ Monthly returns heatmap for quick insights
+Uses live financial market data (via Yahoo Finance)
+The goal is to analyze how equities (S&P 500) and commodities (Gold) behave across different months, helping researchers, analysts, and students study market co-movements.
+
+Installation
+To run this project locally, follow the steps below:
+Clone the repository
+git clone https://github.com/your-username/spx-gold-monthly-report.git
+cd spx-gold-monthly-report
+
+2. Create a virtual environment (recommended)
+python3 -m venv .venv
+source .venv/bin/activate # On macOS/Linux
+.venv\Scripts\activate # On Windows
+
+3. Install the dependencies
+pip install -r requirements.txt
+
+4. Run the Streamlit app
+streamlit run spx_gold_monthly_report.py
+
+5. Open the link provided in the terminal (usually http://localhost:8501) to view the app in your browser.
+This will set up the project and launch the interactive dashboard for comparing the S&P 500 and Gold monthly returns.
+
+
+
+
 Key Features
-Automated Data Ingestion – Fetches real historical data from Yahoo Finance (yfinance).
-Preprocessing Pipeline – Aligns series, groups by month, and normalises to an index (100 = first trading day).
-Interactive Visualisations – Monthly line charts with Plotly (Red = S&P 500, Gold = Gold Futures).
-Summary Tables – For each month: start, end, absolute change, and % change.
-Single Reproducible Artefact – A consolidated HTML report with embedded charts and navigation.
-Each monthly chart normalises both series to the Index (100 = first trading day) to make relative movement directly comparable. A concise summary table (start, end, absolute change, % change) accompanies each month.
+Interactive Dashboard – select months from a dropdown to compare trends
+Performance Indexing (100 = first trading day) – makes S&P 500 and Gold directly comparable
+Monthly Returns Heatmap – highlights which months performed better or worse
+Live Data – automatically fetches the latest available S&P 500 and Gold prices
 
 Methodology
- Download adjusted closing prices for both tickers.
- Align both series on common trading days.
-Group by calendar month.
- Normalise each month to 100 on the first trading day.
-Compute changes (absolute and %).
- Render interactive Plotly charts plus tables into a single HTML file.
+Data Collection
+Fetched 2 years of daily price data for S&P 500 (^GSPC) and Gold Futures (GC=F) using yfinance
 
-What’s Included
- : spx_gold_monthly_report.py → main script.
-output/spx_gold_monthly_report.html → generated HTML report.
-output/ folder → stores artefacts.
+Preprocessing
+Cleaned and aligned data, converted to monthly returns (% change).
+                                                               R_{t} = \frac{P_{t} - P_{t-1}}{P_{t-1}} \times 100
+Normalized both series for fair comparison.
 
-Installation & Usage
-Requirements: Python 3.9+
+Analysis
+Built a monthly returns heatmap (years × months).
+Created comparative line and bar charts for performance trends.
 
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install --upgrade pip
-pip install yfinance pandas plotly
+Visualisation
+Implemented with Streamlit (interactive app).
+Plots made using Plotly with hover insights and filters.
 
-Run:
-
-python spx_gold_monthly_report.py   Output: output/spx_gold_monthly_report.html
+Outcome
+Allows quick comparison of seasonal patterns and correlation between stocks and gold.
 
 
+Example Output
+Monthly comparison chart
+Shows S&P 500 (red) vs Gold (golden line).
 
-Assumptions & Limitations
-Gold proxy: defaults to GC=F futures; alternatives include GLD (ETF) or XAUUSD=X (spot).
-Adjusted Close is used when available.
-Only common trading days are kept (inner join).
-Normalisation conveys relative changes, not absolute volatility.
-
-Possible Extensions
-Matrix heatmap of monthly returns.
-Robustness checks across different gold proxies.
-Export CSV/Excel appendices with raw computations.
-Add statistical tests (rolling correlations, regression diagnostics).
+ Heatmap of returns
+Colour-coded to highlight strong and weak months.
 
 Licensing & Ethics
 Data: Yahoo Finance via yfinance, for educational use only.
 Code: provided as an academic demonstration
+This project is licensed under the MIT License; feel free to use, modify, and share with attribution.
 
 
 Closing note
@@ -61,7 +80,3 @@ This sample is not meant to be a full research project, but a demonstration of m
 Citation
 Please cite as:
 Dev Panu. “S&P 500 vs Gold — Monthly Comparison (Real Yahoo Finance Data).” 2025. Code sample for PhD application.
-
-
-
-
